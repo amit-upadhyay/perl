@@ -33,10 +33,10 @@ while ($i < $num_files)
             $files[$i]=~/seq\/(.*)/;
             my $id = $1;
             print "-$id-\n";
-            open OUT, ">/blast_nr_Dec8_2015/jobs/$id\-job.sge" or die $!;
-            print OUT "\#\$ -N $id\_blast\n\#\$ -q medium*\n\#\$ -cwd\n /lustre/projects/zhulin/aupadhy1/ncbi-blast-2.2.28+/bin/blastp -db /lustre/projects/zhulin/aupadhy1/NR_Dec8_2015/nr -query ../seq/$id -out ../results/$id\_out -evalue 1 -max_target_seqs 1 -outfmt \'6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore qcovs qlen slen staxids sscinames sskingdoms\'\nmv ../seq/$id ../done/\n";
+            open OUT, ">blast_nr_Dec8_2015/jobs/$id\-job.sge" or die $!;
+            print OUT "\#\$ -N $id\_blast\n\#\$ -q medium*\n\#\$ -cwd\n ncbi-blast-2.2.28+/bin/blastp -db NR_Dec8_2015/nr -query ../seq/$id -out ../results/$id\_out -evalue 1 -max_target_seqs 1 -outfmt \'6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore qcovs qlen slen staxids sscinames sskingdoms\'\nmv ../seq/$id ../done/\n";
         
-           chdir("/lustre/projects/zhulin/aupadhy1/Synergistetes/blast_nr_Dec8_2015/jobs/") or die $!;
+           chdir("blast_nr_Dec8_2015/jobs/") or die $!;
            system ("qsub $id\-job.sge");
           
                    
